@@ -1,0 +1,37 @@
+{
+  "id": "CFC-2026-0001",
+  "title": "ClickFix lure to silent MSI, Python crypto clipper and sideloaded fake Google Drive extension",
+  "date": "2026-10-24",
+  "platform": ["windows", "chromium"],
+  "initial_access": {"technique": "clickfix", "lure": "fake verification / fix prompt; suspected free video-download site", "confidence": "HYPOTHESIS"},
+  "ttps": ["T1204.004","T1059.003","T1105","T1218.007","T1059.001","T1027","T1620","T1547.001","T1115","T1176","T1539","T1185","T1090","T1036"],
+  "kill_chain": [
+    {"step": 1, "action": "user pastes command into shell", "confidence": "OBSERVED_ON_HOST"},
+    {"step": 2, "action": "curl downloads MSI from decimal-IP host; msiexec /qn", "confidence": "OBSERVED_ON_HOST"},
+    {"step": 3, "action": "in-memory PowerShell loader", "confidence": "OBSERVED_ON_HOST"},
+    {"step": 4, "action": "portable Python clipper with HKCU Run persistence", "confidence": "OBSERVED_ON_HOST"},
+    {"step": 5, "action": "sideloaded extension in all Chromium profiles via Secure Preferences", "confidence": "OBSERVED_ON_HOST"},
+    {"step": 6, "action": "extension steals cookies / sessions", "confidence": "HYPOTHESIS"}
+  ],
+  "iocs": [
+    {"type": "ipv4", "value": "23.94.145[.]138", "confidence": "OBSERVED_ON_HOST"},
+    {"type": "sha256", "value": "20e5e0ed243d9c691cfe7320434708b419448ac7b38fdc963688829a747be821", "note": "MSI", "confidence": "OBSERVED_ON_HOST"},
+    {"type": "sha256", "value": "f5f2d1f10a88e782ffbbdf3c0698aaa1fc72fa19ba7ca6121fe9a7d4f9f65d5e", "note": "recovered PE", "confidence": "PRESENT_IN_SAMPLE"},
+    {"type": "sha256", "value": "56f8f2420000e1593d9ad13d6c81e8161f0cb0b47b2107fd198420df7a8522d6", "note": "clipper script", "confidence": "OBSERVED_ON_HOST"},
+    {"type": "registry", "value": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\CorporationPackages", "confidence": "OBSERVED_ON_HOST"}
+  ],
+  "artifacts": [
+    {"kind": "msi", "name": "S854.msi", "properties": {"ProductName": "eDVBKxgzxW KfXWE2nr", "Manufacturer": "rz7V1jL9FsWo", "Version": "1.1.8197", "streams": ["BjXHqL3v1A","DKY1Ym3n","NNYgUYOujhV"]}},
+    {"kind": "script", "name": "CorporationPackages.py", "properties": {"obfuscation": ["xor-225","caesar","aes"], "network_bytes_srum": 0}},
+    {"kind": "browser_extension", "name": "Save to Google Drive", "properties": {"author": "Google inc.", "version": "4.0.6", "manifest": 3, "markers": ["GET_COOKIES","SEED_FOUND","startProxy"]}}
+  ],
+  "detections": ["detections/clickfix_decimal_ip_curl_msiexec.yml", "detections/cfc_2026_0001.yar"],
+  "remediation": [
+    "kill implant process", "back up and remove Run key", "quarantine-move dropped files",
+    "remove extension from Secure Preferences in every profile", "export then delete MSI registry keys (avoid msiexec /x)",
+    "firewall-block LAN and delivery IP", "disable remote-access tools until rotated", "rotate credentials and revoke sessions"
+  ],
+  "av_detected": false,
+  "unknowns": ["extension C2 address (encrypted)", "exact lure page", "contents of ifwf.e4"],
+  "redaction_checked": true
+}

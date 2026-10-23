@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ClickFix Casebook case",
+  "type": "object",
+  "required": ["id","title","date","ttps","kill_chain","iocs","remediation","redaction_checked"],
+  "$defs": {"conf": {"enum": ["PRESENT_IN_SAMPLE","OBSERVED_ON_HOST","HYPOTHESIS"]}},
+  "properties": {
+    "id": {"type": "string", "pattern": "^CFC-\\d{4}-\\d{4}$"},
+    "title": {"type": "string", "minLength": 10},
+    "date": {"type": "string", "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$"},
+    "platform": {"type": "array", "items": {"type": "string"}},
+    "initial_access": {"type": "object", "properties": {"confidence": {"$ref": "#/$defs/conf"}}},
+    "ttps": {"type": "array", "items": {"type": "string", "pattern": "^T\\d{4}(\\.\\d{3})?$"}, "minItems": 1},
+    "kill_chain": {"type": "array", "items": {"type": "object", "required": ["step","action","confidence"], "properties": {"step": {"type": "integer"}, "action": {"type": "string"}, "confidence": {"$ref": "#/$defs/conf"}}}},
+    "iocs": {"type": "array", "items": {"type": "object", "required": ["type","value","confidence"], "properties": {"type": {"type": "string"}, "value": {"type": "string"}, "note": {"type": "string"}, "confidence": {"$ref": "#/$defs/conf"}}}},
+    "artifacts": {"type": "array", "items": {"type": "object", "required": ["kind","name"]}},
+    "detections": {"type": "array", "items": {"type": "string"}},
+    "remediation": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "av_detected": {"type": "boolean"},
+    "unknowns": {"type": "array", "items": {"type": "string"}},
+    "redaction_checked": {"const": true}
+  }
+}

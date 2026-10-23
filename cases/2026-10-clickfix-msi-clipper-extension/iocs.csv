@@ -1,0 +1,22 @@
+type,value,context,confidence
+ipv4,23.94.145[.]138,MSI delivery host (decimal 392073610),OBSERVED_ON_HOST
+url,hxxp://392073610/89583,MSI download URL,OBSERVED_ON_HOST
+sha256,20e5e0ed243d9c691cfe7320434708b419448ac7b38fdc963688829a747be821,S854.msi 4708864 bytes,OBSERVED_ON_HOST
+sha256,f5f2d1f10a88e782ffbbdf3c0698aaa1fc72fa19ba7ca6121fe9a7d4f9f65d5e,PE recovered from MSI,PRESENT_IN_SAMPLE
+sha256,56f8f2420000e1593d9ad13d6c81e8161f0cb0b47b2107fd198420df7a8522d6,CorporationPackages.py clipper,OBSERVED_ON_HOST
+guid,{65D05901-10A5-455A-9FD4-9E5EC7004455},MSI ProductCode,OBSERVED_ON_HOST
+registry,HKCU\Software\Microsoft\Windows\CurrentVersion\Run\CorporationPackages,clipper persistence,OBSERVED_ON_HOST
+path,C:\ProgramData\ApplicationApp\,portable python + clipper,OBSERVED_ON_HOST
+file,%LOCALAPPDATA%\ifwf.e4,encrypted blob,OBSERVED_ON_HOST
+extension,Save to Google Drive | Google inc. | 4.0.6,sideloaded MV3 extension,OBSERVED_ON_HOST
+btc,bc1q0gm9tn3tw8g2y6dds5zdrp3hycemw33kfx5g25,clipper replacement wallet,PRESENT_IN_SAMPLE
+btc,bc1qawxdqwkggqk2mdtet92vetq5t78rtzumzxzntg,clipper replacement wallet,PRESENT_IN_SAMPLE
+btc,bc1qs54r8tr38lf2rrxas4ewkty5xtu2tkhyz2gq88,clipper replacement wallet,PRESENT_IN_SAMPLE
+btc,bc1qxcw6799gq6dy8shfazaehndtqq0efuxq0vr09n,clipper replacement wallet,PRESENT_IN_SAMPLE
+btc,377zoCXEE7kytyc3nYM87XYYY9GkBKsUxt,clipper replacement wallet,PRESENT_IN_SAMPLE
+btc,3D1RSDPGhca1qGPqNqRZ2jQRbabxj77uAx,clipper replacement wallet,PRESENT_IN_SAMPLE
+btc,3MHJDdZV2wbW7uzLbaeT2Mak2H3HeDt6sj,clipper replacement wallet,PRESENT_IN_SAMPLE
+ltc,ltc1q73drw93z7l45y3ffcx7y3cjjw4jazt69hzyx47,clipper replacement wallet,PRESENT_IN_SAMPLE
+ltc,LNtGNehnGkfbekAS34WMLfE4GF2twsF8ZT,clipper replacement wallet,PRESENT_IN_SAMPLE
+ltc,LVEfRTSe2TmDDbAao81QSHKbmoEvzGq5Po,clipper replacement wallet,PRESENT_IN_SAMPLE
+ltc,MRwLeqhLJMqLoGjJcvza3Nk8ZkUHe28CYf,clipper replacement wallet,PRESENT_IN_SAMPLE

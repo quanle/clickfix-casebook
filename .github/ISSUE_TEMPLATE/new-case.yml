@@ -1,0 +1,29 @@
+name: New case study
+description: Propose a ClickFix / fake-CAPTCHA case study
+labels: [new-case]
+body:
+  - type: markdown
+    attributes: {value: "Do NOT include personal data, internal IPs, credentials, or malware samples. Defang URLs."}
+  - type: input
+    id: title
+    attributes: {label: Short title}
+    validations: {required: true}
+  - type: textarea
+    id: lure
+    attributes: {label: Lure and pasted command (defanged)}
+    validations: {required: true}
+  - type: textarea
+    id: chain
+    attributes: {label: Kill chain / payloads}
+  - type: textarea
+    id: iocs
+    attributes: {label: IOCs (hashes, defanged hosts)}
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I removed all personal data, internal network details and secrets
+          required: true
+        - label: I am not attaching live malware
+          required: true

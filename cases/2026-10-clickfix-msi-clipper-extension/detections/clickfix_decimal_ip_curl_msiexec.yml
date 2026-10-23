@@ -1,0 +1,29 @@
+# STATUS: UNTESTED sample rule – validate before production use
+title: ClickFix - curl to decimal IP followed by silent msiexec
+id: 6f0c9a3e-2b1d-4c55-9d7e-cfc202600001
+status: experimental
+description: Detects curl.exe downloading from a purely numeric (decimal-encoded IPv4) host and msiexec silent install from TEMP, as seen in CFC-2026-0001.
+references: [https://github.com/quanle/clickfix-casebook]
+tags: [attack.execution, attack.t1204.004, attack.t1218.007, attack.t1105]
+logsource: {category: process_creation, product: windows}
+detection:
+  curl_decimal:
+    Image|endswith: '\curl.exe'
+    CommandLine|re: 'https?://\d{8,10}(/|:|\s)'
+  msi_silent_temp:
+    Image|endswith: '\msiexec.exe'
+    CommandLine|contains|all: ['/i', '\Temp\', '/qn']
+  condition: curl_decimal or msi_silent_temp
+falsepositives: [Software deployment scripts installing from TEMP]
+level: high
+---
+title: Pythonw persistence from ProgramData Run key
+id: 6f0c9a3e-2b1d-4c55-9d7e-cfc202600002
+status: experimental
+logsource: {category: registry_set, product: windows}
+detection:
+  sel:
+    TargetObject|contains: '\Software\Microsoft\Windows\CurrentVersion\Run\'
+    Details|contains|all: ['C:\ProgramData\', 'pythonw']
+  condition: sel
+level: high
